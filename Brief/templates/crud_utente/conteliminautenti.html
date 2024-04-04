@@ -1,0 +1,65 @@
+{% extends "layout_dashboard.html" %}
+{% block title %}Conferma eliminazione{% endblock %}
+
+{% block content %}
+    {% if session['controllo'] == True %}
+        <div class="flex flex-col justify-center items-center h-[500px]">
+            <h1 class="text-3xl text-white animate__animated animate__fadeInUp animation-delay-100">Utente eliminato correttamente</h1>
+            <a href="{{ url_for('dashboard') }}">
+                <button type="submit" class="btn btn-primary mt-4 animation-delay-500 animate__animated animate__bounceIn text-slate-300 hover:text-slate-100">Torna alla dashboard</button>
+            </a>
+        </div>
+    {% else %}
+        <div class="flex bg-gray-50 dark:bg-slate-800 py-[5%]">
+            <div class="my-4 m-auto">
+                <div class="flex md:gap5 gap-2">
+                    <a href="{{ url_for('utenti') }}">
+                        <img src="{{ url_for('static',filename = 'immage/arrow-small-left3.png') }}">
+                    </a>
+                    <h1 class="mb-5 text-center text-3xl dark:text-white text-black m-auto">Utente scelto</h1>
+                </div>
+
+                <table class="text-center table table-striped">
+                    <tr class="animation-delay-100 animate__animated animate__fadeInLeft">
+                        <td class="text-lg">Id_utente</td>
+                        <td>{{ utente.id_utente }}</td>
+                    </tr>
+                    <tr class="animation-delay-300 animate__animated animate__fadeInLeft">
+                        <td class="text-lg">Nome</td>
+                        <td>{{ utente.nome }}</td>
+                    </tr>
+                    <tr class="animation-delay-500 animate__animated animate__fadeInLeft">
+                        <td class="text-lg">Cognome</td>
+                        <td>{{ utente.cognome }}</td>
+                    </tr>
+                    <tr class="animation-delay-700 animate__animated animate__fadeInLeft">
+                        <td class="text-lg">Tipo</td>
+                        <td>{{ utente.tipo }}</td>
+                    </tr>
+                    <tr class="animation-delay-900 animate__animated animate__fadeInLeft">
+                        <td class="text-lg">Email</td>
+                        <td>{{ credenziali.email }}</td>
+                    </tr>
+                    <tr class="animation-delay-1100 animate__animated animate__fadeInLeft">
+                        <td class="text-lg">Password</td>
+                        <td>{{ credenziali.password }}</td>
+                    </tr>
+                </table>
+                <div class="text-center m-auto">
+                    <hr class="my-4 dark:border-slate-200 border-gray-300 border-2 animation-delay-1200 animate__animated animate__bounceIn">
+                    <h1 class="text-xl text-white animation-delay-1200 animate__animated animate__fadeInLeft">Elimiare definitivamente?</h1>
+                    <div class="flex m-auto text-center justify-between mt-7">
+                        <!-- {{utente.id_utente}} -->
+                        <a href="{{ url_for('eliminadefinitiva', id=utente.id_utente) }}">
+                            <button class="btn btn-primary mt-4 animation-delay-1000 animate__animated animate__bounceIn text-red-700 hover:text-red-400">Continuare</button>
+                        </a>
+                        <a href="{{ url_for('utenti') }}">
+                            <button class="btn btn-primary mt-4 animation-delay-1000 animate__animated animate__bounceIn text-slate-300 hover:text-slate-100">Rifiutare</button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    {% endif %}
+{% endblock %}

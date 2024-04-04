@@ -1,0 +1,141 @@
+{% extends "layout_dashboard.html" %}
+{% block title %}Conferma eliminazione{% endblock %}
+{% block content %}
+    <!-- elimina UTENTE -->
+    {% if session['conferme'] == "Eliminazione_utente" %}
+        <div class="flex flex-col justify-center items-center h-[500px]">
+            <h1 class="text-3xl text-white animate__animated animate__fadeInUp animation-delay-100">Utente eliminato correttamente</h1>
+            <a href="{{ url_for('utenti') }}">
+                <button type="submit" class="btn btn-primary mt-4 animation-delay-500 animate__animated animate__bounceIn text-slate-300 hover:text-slate-100">Torna alla Dashboard</button>
+            </a>
+        </div>
+    <!-- elimina CORSO -->
+    {% elif session['conferme'] == "Eliminazione_corso" %}
+        <div class="flex flex-col justify-center items-center h-[500px]">
+            <h1 class="text-3xl text-white animate__animated animate__fadeInUp animation-delay-100">Corso eliminato correttamente</h1>
+            <a href="{{ url_for('corsi') }}">
+                <button type="submit" class="btn btn-primary mt-4 animation-delay-500 animate__animated animate__bounceIn text-slate-300 hover:text-slate-100">Torna alla Dashboard</button>
+            </a>
+        </div>
+    <!-- aggiunta CORSO -->
+    {% elif session['conferme'] == "Aggiunta_corso" %}
+        <div class="flex flex-col justify-center items-center h-[500px]">
+            <h1 class="text-3xl text-white animate__animated animate__fadeInUp animation-delay-100">Corso Aggiunto Correttamente</h1>
+            <div class="flex gap-5">
+                <a href="{{ url_for('corsi') }}">
+                    <button type="submit" class="btn btn-primary mt-4 animation-delay-500 animate__animated animate__bounceIn text-slate-300 hover:text-slate-100">Torna alla Dashboard</button>
+                </a>
+                <a href="{{ url_for('corsi') }}">
+                    <button type="submit" class="btn btn-primary mt-4 animation-delay-500 animate__animated animate__bounceIn text-slate-300 hover:text-slate-100">Aggiungi Studenti</button>
+                </a>
+            </div>
+        </div>
+    <!-- aggiunta utente al CORSO -->
+    {% elif session['conferme'] == "Aggiunta_utente_corso" %}
+        <div class="flex flex-col justify-center items-center h-[500px]">
+            <h1 class="text-3xl text-white animate__animated animate__fadeInUp animation-delay-100">Utenti Aggiunti Correttamente</h1>
+            <a href="{{ url_for('corsi') }}">
+                <button type="submit" class="btn btn-primary mt-4 animation-delay-500 animate__animated animate__bounceIn text-slate-300 hover:text-slate-100">Torna alla Dashboard</button>
+            </a>
+        </div>
+    <!-- rimozione utente dal CORSO -->
+    {% elif session['conferme'] == "Rimuovi_utente_corso" %}
+        <div class="flex flex-col justify-center items-center h-[500px]">
+            <h1 class="text-3xl text-white animate__animated animate__fadeInUp animation-delay-100">Utenti Rimossi Correttamente</h1>
+            <a href="{{ url_for('corsi') }}">
+                <button type="submit" class="btn btn-primary mt-4 animation-delay-500 animate__animated animate__bounceIn text-slate-300 hover:text-slate-100">Torna alla Dashboard</button>
+            </a>
+        </div>
+    <!-- aggiunta UTENTE -->
+    {% elif session['conferme'] == "Aggiunta_utente" %}
+        <div class="flex flex-col justify-center items-center h-[500px]">
+            <h1 class="text-3xl text-white animate__animated animate__fadeInUp animation-delay-100">Utente Aggiunto Correttamente</h1>
+            <a href="{{ url_for('utenti') }}">
+                <button type="submit" class="btn btn-primary mt-4 animation-delay-500 animate__animated animate__bounceIn text-slate-300 hover:text-slate-100">Torna alla Dashboard</button>
+            </a>
+        </div>
+    <!-- modifica UTENTE -->
+    {% elif session['conferme'] == "Modifica_utente" %}
+        <div class="flex flex-col justify-center items-center h-[500px]">
+            <h1 class="text-3xl text-white animate__animated animate__fadeInUp animation-delay-100">Utente Modificato Correttamente</h1>
+            <a href="{{ url_for('utenti') }}">
+                <button type="submit" class="btn btn-primary mt-4 animation-delay-500 animate__animated animate__bounceIn text-slate-300 hover:text-slate-100">Torna alla Dashboard</button>
+            </a>
+        </div>
+    <!-- modifica CORSO -->
+    {% elif session['conferme'] == "Modifica_corso" %}
+        <div class="flex flex-col justify-center items-center h-[500px]">
+            <h1 class="text-3xl text-white animate__animated animate__fadeInUp animation-delay-100">Corso Modificato Correttamente</h1>
+            <a href="{{ url_for('corsi') }}">
+                <button type="submit" class="btn btn-primary mt-4 animation-delay-500 animate__animated animate__bounceIn text-slate-300 hover:text-slate-100">Torna alla Dashboard</button>
+            </a>
+        </div>
+    <!-- aggiunta LEZIONE -->
+    {% elif session['conferme'] == "Aggiunta_lezione" %}
+        <div class="flex flex-col justify-center items-center h-[500px]">
+            <h1 class="text-3xl text-white animate__animated animate__fadeInUp animation-delay-100">Lezione Aggiunta Correttamente</h1>
+            <a href="{{ url_for('lezioni') }}">
+                <button type="submit" class="btn btn-primary mt-4 animation-delay-500 animate__animated animate__bounceIn text-slate-300 hover:text-slate-100">Torna alla Dashboard</button>
+            </a>
+        </div>
+    <!-- rimozione LEZIONE -->
+    {% elif session['conferme'] == "Elimina_lezione" %}
+        <div class="flex flex-col justify-center items-center h-[500px]">
+            <h1 class="text-3xl text-white animate__animated animate__fadeInUp animation-delay-100">Lezione Rimossa Correttamente</h1>
+            <a href="{{ url_for('lezioni') }}">
+                <button type="submit" class="btn btn-primary mt-4 animation-delay-500 animate__animated animate__bounceIn text-slate-300 hover:text-slate-100">Torna alla Dashboard</button>
+            </a>
+        </div>
+    <!-- modifica LEZIONE -->
+    {% elif session['conferme'] == "Modifica_lezione" %}
+        <div class="flex flex-col justify-center items-center h-[500px]">
+            <h1 class="text-3xl text-white animate__animated animate__fadeInUp animation-delay-100">Lezione Modificata Correttamente</h1>
+            <a href="{{ url_for('lezioni') }}">
+                <button type="submit" class="btn btn-primary mt-4 animation-delay-500 animate__animated animate__bounceIn text-slate-300 hover:text-slate-100">Torna alla Dashboard</button>
+            </a>
+        </div>
+    <!-- aggiunta PRESENZA -->
+    {% elif session['conferme'] == "Inserite_presenze" %}
+        <div class="flex flex-col justify-center items-center h-[500px]">
+            <h1 class="text-3xl text-white animate__animated animate__fadeInUp animation-delay-100">Presenze Aggiunte Correttamente</h1>
+            <a href="{{ url_for('lezioni') }}">
+                <button type="submit" class="btn btn-primary mt-4 animation-delay-500 animate__animated animate__bounceIn text-slate-300 hover:text-slate-100">Torna alla Dashboard</button>
+            </a>
+        </div>
+    {% endif %}
+{% endblock %}
+{% block dashboard_docente %}
+    <!-- aggiunta LEZIONE DOCENTE -->
+    {% if session['conferme'] == "Aggiunta_lezione_docente" %}
+        <div class="flex flex-col justify-center items-center h-[500px]">
+            <h1 class="text-3xl text-white animate__animated animate__fadeInUp animation-delay-100">Lezione Aggiunta Correttamente</h1>
+            <a href="{{ url_for('lezioni_docenti') }}">
+                <button type="submit" class="btn btn-primary mt-4 animation-delay-500 animate__animated animate__bounceIn text-slate-300 hover:text-slate-100">Torna alla Dashboard</button>
+            </a>
+        </div>
+    <!-- aggiunte PRESENZE DOCENTE -->
+    {% elif session['conferme'] == "Inserite_presenze_docente" %}
+        <div class="flex flex-col justify-center items-center h-[500px]">
+            <h1 class="text-3xl text-white animate__animated animate__fadeInUp animation-delay-100">Presenze Aggiunte Correttamente</h1>
+            <a href="{{ url_for('lezioni_docenti') }}">
+                <button type="submit" class="btn btn-primary mt-4 animation-delay-500 animate__animated animate__bounceIn text-slate-300 hover:text-slate-100">Torna alla Dashboard</button>
+            </a>
+        </div>
+    <!-- modifica LEZIONE DOCENTE -->
+    {% elif session['conferme'] == "Modifica_lezione_docente" %}
+        <div class="flex flex-col justify-center items-center h-[500px]">
+            <h1 class="text-3xl text-white animate__animated animate__fadeInUp animation-delay-100">Lezione Modificata Correttamente</h1>
+            <a href="{{ url_for('lezioni_docenti') }}">
+                <button type="submit" class="btn btn-primary mt-4 animation-delay-500 animate__animated animate__bounceIn text-slate-300 hover:text-slate-100">Torna alla Dashboard</button>
+            </a>
+        </div>
+    <!-- elimina LEZIONE DOCENTE -->
+    {% elif session['conferme'] == "Elimina_lezione_docente" %}
+        <div class="flex flex-col justify-center items-center h-[500px]">
+            <h1 class="text-3xl text-white animate__animated animate__fadeInUp animation-delay-100">Lezione Eliminata Correttamente</h1>
+            <a href="{{ url_for('lezioni_docenti') }}">
+                <button type="submit" class="btn btn-primary mt-4 animation-delay-500 animate__animated animate__bounceIn text-slate-300 hover:text-slate-100">Torna alla Dashboard</button>
+            </a>
+        </div>
+    {% endif %}
+{% endblock %}

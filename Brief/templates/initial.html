@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+<!DOCTYPE html>
+<head>
+    {% block title %}Initial{% endblock %}
+</head>
+<body>
+    {% block dashboarddocente %}{% endblock %}
+    {% block dashboardstudent %}{% endblock %}
+    {% block content%}
+    <section id="Intro">
+        <div class="h-screen bg-gradient-to-tl from-violet-900 via-indigo-500 to-purple-600 p-4 dark:bg-gradient-to-tl dark:from-indigo-900 dark:to-fuchsia-800">
+            <div class="md:pt-[250px] pt-[300px] text-center items-center md:flex gap-1 md:text-7xl text-4xl font-extrabold dark:text-slate-300 text-slate-300 justify-center">
+                <img src="{{ url_for('static',filename = 'immage/9391712.png') }}" alt="logo" width="130px" class="fa-flip m-auto md:m-0">
+                <div class="flex justify-center text-center pt-10">
+                    <h1 class="animate-bounce animation-delay-600">A</h1>
+                    <h1 class="animate-bounce animation-delay-100">T</h1>
+                    <h1 class="animate-bounce animation-delay-1200">T</h1>
+                    <h1 class="animate-bounce animation-delay-1300">E</h1>
+                    <h1 class="animate-bounce animation-delay-900 ">N</h1>
+                    <h1 class="animate-bounce animation-delay-500">D</h1>
+                    <h1 class="animate-bounce animation-delay-600">A</h1>
+                    <h1 class="animate-bounce animation-delay-700">N</h1>
+                    <h1 class="animate-bounce animation-delay-1500">C</h1>
+                    <h1 class="animate-bounce animation-delay-500">E</h1>
+                    <h1>&nbsp</h1>
+                </div>
+                <div class="flex justify-center pt-10 text-center">
+                    <h1 class="animate-bounce animation-delay-100">T</h1>
+                    <h1 class="animate-bounce animation-delay-500">R</h1>
+                    <h1 class="animate-bounce animation-delay-200">A</h1>
+                    <h1 class="animate-bounce animation-delay-300">C</h1>
+                    <h1 class="animate-bounce animation-delay-1400">K</h1>
+                    <h1 class="animate-bounce animation-delay-800">E</h1>
+                    <h1 class="animate-bounce animation-delay-400">R</h1>
+                </div>
+            </div>
+            <div class="text-center pt-10">
+                <a href="{{ url_for('homepage') }}" class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800">
+                    <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
+                    Clicca per iniziare
+                </a>
+            </div>
+        </div>
+    </section>
+    {% endblock %}
+    {% block footer%}{% endblock %}
+</body>
+</html>

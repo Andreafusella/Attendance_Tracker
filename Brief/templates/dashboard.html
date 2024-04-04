@@ -1,0 +1,543 @@
+{% extends "layout_dashboard.html" %}
+
+<head>
+    {% block title %}Dashboard{% endblock %}
+</head>
+
+<body>
+    {% block content %}
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <h1 class="md:text-6xl text-2xl">Dashboard Admin</h1>
+    <form method="POST">
+      <div class="flex gap-4">
+          <select name="selected_month" id="monthSelect" class="block ml-4 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 text-gray-700 dark:text-gray-300 rounded-md py-2 px-4 mb-4 focus:outline-none focus:border-indigo-500 dark:focus:border-indigo-500">
+              <option value="1">Gennaio</option>
+              <option value="2">Febbraio</option>
+              <option value="3">Marzo</option>
+              <option value="4">Aprile</option>
+              <option value="5">Maggio</option>
+              <option value="6">Giugno</option>
+              <option value="7">Luglio</option>
+              <option value="8">Agosto</option>
+              <option value="9">Settembre</option>
+              <option value="10">Ottobre</option>
+              <option value="11">Novembre</option>
+              <option value="12">Dicembre</option>
+          </select>
+          <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-4 mb-4">Invia</button>
+      </div>
+      <div class="md:flex gap-5 ml-5">
+          <div class="bg-slate-700 rounded-3xl">
+            <div id="admin1" class="w-[700px]"></div>
+
+          </div>
+          <div class="bg-slate-700 rounded-3xl">
+            <h1 class="my-3"> Presenze per corso</h1>
+            <div id="admin2" class="w-[400px]"></div>
+          </div>
+          
+      </div>
+    </form>
+
+      <!-- Grafico admin 1 -->
+      <script>
+        var options = {
+          series: [{
+          name: 'Assenze',
+          data: [4.3, 3.1, 4.0, 10.1, 4.0, 3.6, 3.2, 7.3, 1.4, 2, 0.5, 9.2]
+        }],
+          chart: {
+          height: 350,
+          type: 'bar',
+        },
+        plotOptions: {
+          bar: {
+            borderRadius: 10,
+            dataLabels: {
+              position: 'top', // top, center, bottom
+            },
+            
+          }
+        },
+        dataLabels: {
+          enabled: true,
+          formatter: function (val) {
+            return val + "%";
+          },
+          offsetY: -20,
+          style: {
+            fontSize: '12px',
+            colors: ["#ffffff"]
+          }
+        },
+        
+        xaxis: {
+          categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+          position: 'top',
+          labels: {
+            style: {
+                colors: ['#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff']
+            }
+        },
+          axisBorder: {
+            show: false
+          },
+          axisTicks: {
+            show: false
+          },
+          crosshairs: {
+            fill: {
+              type: 'gradient',
+              gradient: {
+                colorFrom: '#D8E3F0',
+                colorTo: '#BED1E6',
+                stops: [0, 100],
+                opacityFrom: 0.4,
+                opacityTo: 0.5,
+              }
+            }
+          },
+          tooltip: {
+            enabled: true,
+          }
+        },
+        yaxis: {
+          axisBorder: {
+            show: false
+          },
+          axisTicks: {
+            show: false,
+          },
+          labels: {
+            show: false,
+            formatter: function (val) {
+              return val + "%";
+            }
+          }
+        
+        },
+        title: {
+          text: 'Presenze per mese',
+          floating: true,
+          offsetY: 330,
+          align: 'center',
+          style: {
+            color: '#ffffff'
+          }
+        }
+        };
+
+        var chart = new ApexCharts(document.querySelector("#admin1"), options);
+        chart.render();
+      </script>
+
+      <!-- Grafico admin 2 -->
+      <script>
+        var options = {
+          series: [44, 55, 41, 17, 15, 23],
+          labels: ['Analisi 1', 'ssw1', 'Arte', 'Informatica', 'Italiano', 'Matematica'],
+          colors: ['#FF5733', '#FFC300', '#DAF7A6', '#C70039', '#900C3F', '#ffffff'],
+          chart: {
+          type: 'donut',
+        },
+        responsive: [{
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 200
+            },
+            legend: {
+              position: 'bottom'
+            }
+          }
+        }]
+        };
+
+        var chart = new ApexCharts(document.querySelector("#admin2"), options);
+        chart.render();
+      </script>
+    {% endblock %}
+
+    {% block dashboard_docente %}
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+        <h1 class="md:text-6xl text-2xl">Dashboard Docente</h1>
+        <div class="md:flex gap-5 m-auto mt-5">
+          <div class="bg-slate-700 w-[300px] rounded-3xl mx-5 m-auto flex flex-col justify-center items-center my-3">
+            <div class="flex gap-2 ml-3">
+              <h1 class="text-xl text-slate-300">Numero Lezioni oggi: </h1>
+              <h1 class="text-xl text-slate-300">{{numero_lezioni_odierne}}</h1>
+            </div>
+            <table class="mb-5">
+              <thead>
+                <tr class="text-center">
+                  <th class="pl-3 text-lg m-auto">Argomento:</th>
+                </tr>
+              </thead>
+              <tbody class="text-center md:text-base text-xs">
+                {% for lezione in argomenti_lezioni_odierne %}
+                  <tr>
+                    <td class="text-slate-400">{{ lezione }}</td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            <div>
+              <h1 class="my-4 text-xl text-slate-200">Ultime 8 lezioni:</h1>
+                <ul>
+                  {% for argomento in argomenti_ultime_8_lezioni %}
+                    <li>{{ argomento[0] }}</li>
+                  {% endfor %}
+                </ul>
+            </div>
+          </div>
+          <div class="bg-slate-700 w-[600px] rounded-3xl">
+            <h1 class="m-3">Grafico Assenze</h1>
+            <div id="chartdoc">
+
+            </div>
+          </div>
+        </div>
+        
+      <!-- Grafico docente 1 -->
+      <script>
+        var options = {
+          series: [{
+          name: 'Presenze',
+          data: [44, 55, 41, 67, 22, 43, 21, 49]
+        }, {
+          name: 'Assenze',
+          data: [11, 17, 15, 15, 21, 14, 15, 13]
+        }],
+          chart: {
+          type: 'bar',
+          height: 350,
+          stacked: true,
+          stackType: '100%'
+        },
+        responsive: [{
+          breakpoint: 480,
+          options: {
+            legend: {
+              position: 'bottom',
+              offsetX: -10,
+              offsetY: 0
+            }
+          }
+        }],
+        xaxis: {
+          categories: [{{argomenti_ultime_lezioni[0] | tojson}}, {{argomenti_ultime_lezioni[1] | tojson}},
+          {{argomenti_ultime_lezioni[2] | tojson}},{{argomenti_ultime_lezioni[3] | tojson}},{{argomenti_ultime_lezioni[4] | tojson}},
+          {{argomenti_ultime_lezioni[5] | tojson}},{{argomenti_ultime_lezioni[6] | tojson}},{{argomenti_ultime_lezioni[7] | tojson}}
+          ],
+          labels: {
+            rotate: 0,
+            style: {
+                colors: ['#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff', '#ffffff'],
+                fontSize: '8px'
+            }
+        }
+        },
+        fill: {
+          opacity: 1
+        },
+        legend: {
+          position: 'right',
+          offsetX: 0,
+          offsetY: 50
+        },
+        };
+
+        var chart = new ApexCharts(document.querySelector("#chartdoc"), options);
+        chart.render();
+      </script>
+    {% endblock %}
+
+    {% block dashboard_studente %}
+    <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+        {% block containerClass %}{% endblock containerClass %}
+        <h1 class="md:text-4xl text-2xl mt-5 mb-10 text-slate-200">Dashboard Di {{session['nome_definitivo']}} {{session['cognome_definitivo']}}</h1>
+        <div class="flex gap-4 ml-5 mr-5 items-center ">
+            <div class="m-auto">
+                <div class="m-auto animate__animated animate__fadeInUp mb-4">
+                    <div class="border-1 h-[200px] w-[200px] bg-slate-700 flex justify-center items-center rounded-3xl">
+                        <div>
+                            <h1 class="text-6xl">{{ presenze }}</h1>        
+                            <h1 class="text-xl">Presenze</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="m-auto animate__animated animate__fadeInUp">
+                    <div class="border-1 h-[200px] w-[200px] bg-slate-700 flex justify-center items-center rounded-3xl">
+                        <div>
+                            <h1 class="text-6xl">{{ assenze }}</h1>
+                            <h1 class="text-xl">Assenze</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="m-auto animate__animated animate__fadeInUp border-1 bg-slate-700 rounded-3xl">
+                <h1 class="text-2xl my-4">Percentuale</h1>
+                <div id="chart1" class="mb-3">
+                </div>
+            </div>
+        </div>
+        <div class="w-full flex justify-center">
+            <div class="flex m-auto gap-10">
+                <div class="my-10 bg-slate-700 mx-5 rounded-3xl items-center m-auto">
+                    <h1 class="text-center mt-4">Grafico Presenze Mensili</h1>
+                    <div id="chart2" class="mr-3 w-[400px]">
+                    </div>
+                </div>
+                <div class="my-10 bg-slate-700 mx-5 rounded-3xl items-center">
+                    <h1 class="text-center mt-4">Grafico Assenze Mensili</h1>
+                    <div id="chart3" class="mr-3 w-[400px]">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- grafico torta percentuale presenze/assenze -->
+        <script>
+            var assenza = + "{{assenze}}"
+            var presenza = + "{{presenze}}"
+            var options = {
+                series: [assenza, presenza],
+                labels: ['Presenze', 'Assenze'],
+                markers: {
+                    colors: ['#FFFFFF', '#FFFFFF']
+                },
+                dataLabels: {
+                    style: {
+                      colors: ['#FFFFFF', '#FFFFFF']
+                    }
+                },
+                
+                chart: {
+                    type: 'donut',
+                    width: 400,
+                },
+
+                responsive: [{
+                    breakpoint: 480,
+                    options: {
+                        chart: {
+                        height: 100,
+                    },
+                    legend: {
+                        position: 'bottom'
+                    }
+
+                    }
+                }]
+            };
+        
+              var chart = new ApexCharts(document.querySelector("#chart1"), options);
+              chart.render();
+            
+        </script>
+
+        <!-- grafico mensile presenze -->
+        <script>
+            var presenza_gennaio = +"{{presenza_gennaio}}"
+            var presenza_febbraio = +"{{presenza_febbraio}}"
+            var presenza_marzo = +"{{presenza_marzo}}"
+            var presenza_aprile = +"{{presenza_aprile}}"
+            var presenza_maggio = +"{{presenza_maggio}}"
+            var presenza_giugno = +"{{presenza_giugno}}"
+            var presenza_luglio = +"{{presenza_luglio}}"
+            var presenza_agosto = +"{{presenza_agosto}}"
+            var presenza_settembre = +"{{presenza_settembre}}"
+            var presenza_ottobre = +"{{presenza_ottobre}}"
+            var presenza_novembre = +"{{presenza_novembre}}"
+            var presenza_dicembre = +"{{presenza_dicembre}}"
+            var options = {
+                series: [{
+                name: 'Presenze',
+                data: [presenza_gennaio,presenza_febbraio, presenza_marzo, presenza_aprile,presenza_maggio, 
+                presenza_giugno, presenza_luglio, presenza_agosto, presenza_settembre, presenza_ottobre, 
+                presenza_novembre, presenza_dicembre]
+              }],
+                chart: {
+                height: 350,
+                type: 'bar',
+              },
+              plotOptions: {
+                bar: {
+                  borderRadius: 10,
+                  dataLabels: {
+                    position: 'top', // top, center, bottom
+                  },
+                }
+              },
+              dataLabels: {
+                enabled: true,
+                formatter: function (val) {
+                  return val;
+                },
+                offsetY: -20,
+                style: {
+                  fontSize: '12px',
+                  colors: ["#ffffff"]
+                }
+              },
+              
+              xaxis: {
+                categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                position: 'top',
+                labels: {
+                    style: {
+                        colors: ['#ffffff','#ffffff','#ffffff','#ffffff','#ffffff','#ffffff','#ffffff','#ffffff','#ffffff','#ffffff','#ffffff','#ffffff']
+                    }
+                },
+                axisBorder: {
+                  show: false
+                },
+                axisTicks: {
+                  show: false
+                },
+                crosshairs: {
+                  fill: {
+                    type: 'gradient',
+                    gradient: {
+                      colorFrom: '#ffffff',
+                      colorTo: '#ffffff',
+                      stops: [0, 100],
+                      opacityFrom: 0.4,
+                      opacityTo: 0.5,
+                    }
+                  }
+                },
+                tooltip: {
+                  enabled: true,
+                }
+              },
+              yaxis: {
+                axisBorder: {
+                  show: false
+                },
+                axisTicks: {
+                  show: false,
+                },
+                labels: {
+                  show: false,
+                  formatter: function (val) {
+                    return val;
+                  }
+                }
+              
+              },
+              };
+      
+              var chart = new ApexCharts(document.querySelector("#chart2"), options);
+              chart.render();
+            
+        </script>
+
+        <!-- Grafico mensile assenze -->
+        <script>
+            var assenza_gennaio = +"{{assenza_gennaio}}"
+            var assenza_febbraio = +"{{assenza_febbraio}}"
+            var assenza_marzo = +"{{assenza_marzo}}"
+            var assenza_aprile = +"{{assenza_aprile}}"
+            var assenza_maggio = +"{{assenza_maggio}}"
+            var assenza_giugno = +"{{assenza_giugno}}"
+            var assenza_luglio = +"{{assenza_luglio}}"
+            var assenza_agosto = +"{{assenza_agosto}}"
+            var assenza_settembre = +"{{assenza_settembre}}"
+            var assenza_ottobre = +"{{assenza_ottobre}}"
+            var assenza_novembre = +"{{assenza_novembre}}"
+            var assenza_dicembre = +"{{assenza_dicembre}}"
+            var options = {
+                series: [{
+                name: 'Assenze',
+                data: [assenza_gennaio, assenza_febbraio, assenza_marzo, 
+                assenza_aprile, assenza_maggio, assenza_giugno, 
+                assenza_luglio, assenza_agosto, assenza_settembre, 
+                assenza_ottobre, assenza_novembre, assenza_dicembre]
+              }],
+                chart: {
+                height: 350,
+                type: 'bar',
+              },
+              plotOptions: {
+                bar: {
+                  borderRadius: 10,
+                  dataLabels: {
+                    position: 'top', // top, center, bottom
+                  },
+                }
+              },
+              dataLabels: {
+                enabled: true,
+                formatter: function (val) {
+                  return val;
+                },
+                offsetY: -20,
+                style: {
+                  fontSize: '12px',
+                  colors: ["#ffffff"]
+                }
+              },
+              
+              xaxis: {
+                categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                position: 'top',
+                labels: {
+                    style: {
+                        colors: ['#ffffff','#ffffff','#ffffff','#ffffff','#ffffff','#ffffff','#ffffff','#ffffff','#ffffff','#ffffff','#ffffff','#ffffff'] // Colora le etichette sull'asse x
+                    }
+                },
+                axisBorder: {
+                  show: false
+                },
+                axisTicks: {
+                  show: false
+                },
+                crosshairs: {
+                  fill: {
+                    type: 'gradient',
+                    gradient: {
+                      colorFrom: '#ffffff',
+                      colorTo: '#ffffff',
+                      stops: [0, 100],
+                      opacityFrom: 0.4,
+                      opacityTo: 0.5,
+                    }
+                  }
+                },
+                tooltip: {
+                  enabled: true,
+                }
+              },
+              yaxis: {
+                axisBorder: {
+                  show: false
+                },
+                axisTicks: {
+                  show: false,
+                },
+                labels: {
+                  show: false,
+                  formatter: function (val) {
+                    return val;
+                  }
+                }
+              
+              },
+              colors: ['#CC0000'],
+              };
+      
+              var chart = new ApexCharts(document.querySelector("#chart3"), options);
+              chart.render();
+            
+        </script>
+
+    {% endblock dashboard_studente %}
+</body>

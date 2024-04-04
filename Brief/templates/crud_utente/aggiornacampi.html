@@ -1,0 +1,78 @@
+{% extends "layout_dashboard.html" %}
+
+{% block title %}Aggiorna campi{% endblock %}
+
+{% block content %}
+<div class="bg-gray-50 dark:bg-slate-800">
+    <div class="flex flex-col justify-center items-center min-h-screen gap-4 animation-delay-200 animate__animated animate__bounceIn">
+        <a href="{{ url_for('homepage') }}"><img src="{{ url_for('static',filename = 'immage/9391712.png') }}" alt="logo" height="100px" width="100px" class=""></a>
+        <div class="flex items-center">
+            <a href="{{ url_for('utenti') }}" class="mr-2">
+                <img src="{{ url_for('static', filename='immage/arrow-small-left3.png') }}" alt="">
+            </a>
+            <h2 class="font-semibold md:text-4xl text-2xl animation-delay-200 animate__animated animate__bounceIn text-white dark:text-slate-300 text-center flex-grow">Aggiorna dati</h2>
+        </div>
+        
+        
+        <div class="flex flex-col md:flex-row rounded-xl w-full max-w-[30rem] bg-slate-200 dark:bg-slate-700 overflow-hidden">
+            
+            <!-- form -->
+            <div class="w-full p-10 text-center">
+                
+                <form action="" method="post" novalidate onclick="this.disabled=true; this.form.submit();">
+                    {{form.csrf_token}}
+                    <div class="md:flex gap-5">
+                        <div>
+                            <label for="nome" class="form-control w-full max-w-xs animation-delay-400 animate__animated animate__bounceIn m-auto">
+                                <div class="label">
+                                    <span class="label-text text-slate-600 dark:text-slate-300">Nome</span>
+                                </div>
+                                {{ form.nome(class="input input-bordered w-full max-w-xs bg-slate-200", id="id_utente") }}
+                            </label>
+                            <label for="cognome" class="form-control w-full max-w-xs animation-delay-600 animate__animated animate__bounceIn m-auto">
+                                <div class="label">
+                                    <span class="label-text text-slate-600 dark:text-slate-300">Cognome</span>
+                                </div>
+                                {{ form.cognome(class="input input-bordered w-full max-w-xs bg-slate-200", id="nome") }}
+                            </label>
+                            
+                        </div>
+                        <div>
+                            <label for="email" class="form-control w-full max-w-xs animation-delay-400 animate__animated animate__bounceIn m-auto">
+                                <div class="label">
+                                    <span class="label-text text-slate-600 dark:text-slate-300">Email</span>
+                                </div>
+                                {{ form.email(class="input input-bordered w-full max-w-xs bg-slate-200", id="email") }}
+                            </label>
+                            <label for="password" class="form-control w-full max-w-xs animation-delay-600 animate__animated animate__bounceIn m-auto">
+                                <div class="label">
+                                    <span class="label-text text-slate-600 dark:text-slate-300">Password</span>
+                                </div>
+                                {{ form.password(class="input input-bordered w-full max-w-xs bg-slate-200", id="password") }}
+                            </label>
+
+                            <!-- rimettere centrale -->
+                        </div>
+                    </div>
+                    <label for="tipo" class="form-control w-full max-w-xs animation-delay-800 animate__animated animate__bounceIn m-auto">
+                        <div class="label">
+                            <span class="label-text text-slate-600 dark:text-slate-300">Tipo</span>
+                        </div>
+                        {{ form.tipo(class="form-select rounded-lg", id="tipo")}}
+                    </label>
+                    <br>
+                    <input type="submit" value="Aggiorna Utente" class="btn btn-primary mt-4 animation-delay-1000 animate__animated animate__bounceIn text-slate-300 hover:text-slate-100">
+                    {% if error_message %}
+                        <div class="animation-delay-1000 animate__animated animate__bounceIn text-red-600 text-xl mt-2">{{ error_message }}</div>
+                    {% endif %}
+                </form>
+
+
+                <hr class="my-4 dark:border-slate-200 border-gray-300 border-2 animation-delay-1200 animate__animated animate__bounceIn">
+                <h1 class="text-center m-auto text-red-600 animation-delay-1500 animate__animated animate__bounceIn">Riempire solo i campi da modificare</h1>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+    

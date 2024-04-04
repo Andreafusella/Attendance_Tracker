@@ -1,0 +1,49 @@
+{% extends "layout.html" %}
+{% block title %}Error 404{% endblock %}
+{% block content%}
+    <div class="bg-slate-800 h-screen flex flex-col justify-center items-center">
+        <h1 class="text-6xl">ERROR 404</h1>
+        <a href="{{ url_for('homepage') }}">
+            <button class="btn btn-primary md:text-xs text-xs hover:fa-bounce text-slate-300 hover:text-slate-100 mt-6">Torna alla dashboard</button>
+        </a>
+    </div>
+
+    <script>
+        function createMovingText(text) {
+            const movingText = document.createElement('div');
+            movingText.textContent = text;
+            movingText.style.position = 'absolute';
+            movingText.style.top = Math.random() * window.innerHeight + 'px';
+            movingText.style.left = Math.random() * window.innerWidth + 'px';
+            movingText.style.color = 'gray';
+            movingText.style.opacity =0.4;
+            movingText.style.fontSize = '15px';
+            document.body.appendChild(movingText);
+            return movingText;
+        }
+        
+        // Funzione per muovere un elemento di testo sulla pagina
+        function moveText(textElement) {
+            const randomX = Math.random() * 20 - 10; // Genera un numero casuale tra -5 e 5 per lo spostamento orizzontale
+            const randomY = Math.random() * 20 - 10; // Genera un numero casuale tra -5 e 5 per lo spostamento verticale
+            const rect = textElement.getBoundingClientRect();
+            const newX = rect.left + randomX;
+            const newY = rect.top + randomY;
+            textElement.style.left = newX + 'px';
+            textElement.style.top = newY + 'px';
+        }
+        
+        // Creazione dei testi animati
+        const movingTexts = [];
+        for (let i = 0; i < 50; i++) {
+            movingTexts.push(createMovingText('ERROR 404'));
+            movingTexts.push(createMovingText('404 ERROR'));
+        }
+        
+        // Aggiornamento continuo delle posizioni dei testi animati
+        setInterval(() => {
+            movingTexts.forEach(moveText);
+        }, 10);
+    </script>
+{% endblock %}
+{% block footer %}{% endblock %}

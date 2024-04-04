@@ -1,0 +1,56 @@
+{% extends "layout.html" %}
+
+<!DOCTYPE html>
+<head>
+    {% block title %}Login Docente{% endblock %}
+    
+</head>
+<body>
+    {% block dashboard %}{% endblock %}
+    {% block content %}
+    <div class="bg-gradient-to-r from-violet-900 via-indigo-500 to-purple-600 p-4 dark:bg-gradient-to-r dark:from-indigo-900 dark:to-fuchsia-800">
+        <div class="flex justify-between">
+            <a href="{{ url_for('homepage') }}"><h1 class="text-2xl text-gray-200 animation-delay-400 animate__animated animate__bounceIn">Home</h1></a>
+            
+        </div>
+        <div class="flex flex-col justify-center items-center min-h-screen gap-4 animation-delay-200 animate__animated animate__bounceIn">
+            <a href="{{ url_for('homepage') }}"><img src="{{ url_for('static',filename = 'immage/9391712.png') }}" alt="logo" height="100px" width="100px" class=""></a>
+            <h2 class="font-semibold md:text-4xl text-2xl animation-delay-200 animate__animated animate__bounceIn text-white dark:text-slate-300">Accedi</h2>
+            <div class="flex flex-col md:flex-row rounded-xl w-full max-w-[30rem] bg-slate-200 dark:bg-slate-700 overflow-hidden">
+                
+                <!-- form -->
+                <div class="w-full p-10 text-center">
+                    
+                    <form action="" method="post" novalidate onclick="this.disabled=true; this.form.submit();">
+                        {{form.csrf_token}}
+                        <label for="email" class="form-control w-full max-w-xs animation-delay-400 animate__animated animate__bounceIn m-auto">
+                            <div class="label">
+                                <span class="label-text text-slate-600 dark:text-slate-300">Email</span>
+                            </div>
+                            {{ form.email(placeholder='email@example.it', class="input input-bordered w-full max-w-xs bg-slate-200 text-slate-500", id="email") }}
+                        </label>
+                        <label for="password" class="form-control w-full max-w-xs animation-delay-700 animate__animated animate__bounceIn m-auto">
+                            <div class="label">
+                                <span class="label-text text-slate-600 dark:text-slate-300">Password</span>
+                            </div>
+                            {{ form.password(placeholder='********',class="input input-bordered w-full max-w-xs bg-slate-200 text-slate-500", id="password") }}
+                        </label>
+                        <br>
+                        {% if flag %}
+                            <div class="animation-delay-1000 animate__animated animate__bounceIn text-red-600 text-xl">{{ error_message }}</div>
+                        {% endif %}
+                        <input type="submit" value="Accedi" class="btn btn-primary mt-4 animation-delay-1000 animate__animated animate__bounceIn text-slate-300 hover:text-slate-100">
+                    </form>
+
+                    <img src="" alt="">
+                    <hr class="my-4 dark:border-slate-200 border-gray-300 border-2 animation-delay-1200 animate__animated animate__bounceIn">
+                    <div class="flex justify-between text-[14px]">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock %}
+    
+</body>
+</html>

@@ -1,0 +1,63 @@
+{% extends "layout_dashboard.html" %}
+{% block title %}Lezioni Studente{% endblock %}
+{% block dashboard_studente %}
+
+    <!-- interno Dashboard -->
+
+<div class=" my-4 m-auto">
+    <div class="flex items-center md:gap-5 gap-2">
+        <a href="{{ url_for('dashboard') }}">
+            <img src="{{ url_for('static',filename = 'immage/arrow-small-left3.png') }}" >
+        </a>
+        <h1 class=" text-center text-s md:text-3xl dark:text-white text-black m-auto">Lista lezioni</h1>
+        
+        <!-- inserimento data -->
+        <div class="form-control m-auto">
+            <div class="label">
+                <span class="label-text text-slate-600 dark:text-slate-300"></span>
+            </div>
+            <div class="flex gap-2">
+                <input type="date" id="data" class="input input-bordered w-full max-w-xs bg-slate-200">
+                <a id="search-link" href="#">
+                    <button class="btn px-[10px] min-h-2 md:min-h-[48px] md:h-[48px] min-w-7 w-30 text-xs md-text-lg btn-primary text-slate-300 hover:text-slate-100 text-center justify-center m-auto">Cerca</button>
+                </a>
+            </div>
+        </div>
+            
+        
+    </div>
+
+    <table class="table[p-0] md:table table-striped text-center">
+        <thead>
+            <tr class="text-center">
+                <th class="text-slate-200">ID</th>
+                <th class="text-slate-200">Argomento</th>
+                <th class="text-slate-200">Data</th>
+                
+                
+            </tr>
+            
+        </thead>
+        <tbody class="text-center md:text-base text-xs">
+            {% for lezione in lezioni_list %}
+            <tr>
+                <td class="text-slate-300">{{ lezione.id_lezione }}</td>
+                <td class="text-slate-300">{{ lezione.argomento }}</td>
+                <td class="mr-20 text-slate-300">{{ lezione.data }}</td>
+                
+            </tr>
+            {% endfor %}
+        </tbody>
+        
+    </table>
+</div>
+<script>
+    document.getElementById('search-link').addEventListener('click', function(event) {
+        event.preventDefault(); 
+        var data = document.getElementById('data').value; 
+        var url = "{{ url_for('lezioni_studente_ricerca', data='') }}"; 
+        window.location.href = url + data;
+    });
+</script>
+
+{% endblock %}

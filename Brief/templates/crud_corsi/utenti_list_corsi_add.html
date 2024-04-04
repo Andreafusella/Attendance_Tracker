@@ -1,0 +1,55 @@
+{% extends "layout_dashboard.html" %}
+{% block title %}Corsi{% endblock %}
+{% block content %}
+    <div class=" my-4 m-auto">
+        <div class="flex md:gap-5 gap-2">
+            <a href="{{ url_for('corsi') }}">
+                <img src="{{ url_for('static',filename = 'immage/arrow-small-left3.png') }}">
+            </a>
+            <h1 class="mb-3 text-center text-3xl dark:text-white text-black m-auto">Lista Docenti e Studenti</h1>
+        
+        </div>
+        <form action="" method="post">
+            <table class="table table-striped text-center">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Avatar</th>
+                        <th>Nome</th>
+                        <th>Cognome</th>
+                        <th>Tipologia</th>
+                        <th>Aggiungi al corso</th>
+                    </tr>
+                    
+                </thead>
+                <tbody class="text-center md:text-base text-xs">
+                    {% for utente in utenti_list %}
+                    <tr>
+                        <td>{{ utente.id_utente }}</td>
+                        <td>
+                            {% if utente.avatar == 1 %}
+                                <img src="{{ url_for('static',filename = 'immage/avatar1.png') }}" alt="" class="h-[35px]">
+                            {% elif utente.avatar == 2  %}
+                                <img src="{{ url_for('static',filename = 'immage/avatar2.png') }}" alt="" class="h-[35px]">
+                            {% elif utente.avatar == 3 %}
+                                <img src="{{ url_for('static',filename = 'immage/avatar3.png') }}" alt="" class="h-[35px]" >
+                            {% elif utente.avatar == 4 %}
+                                <img src="{{ url_for('static',filename = 'immage/avatar4.png') }}" alt="" class="h-[35px]">
+                            {% elif utente.avatar == 5 %}
+                                <img src="{{ url_for('static',filename = 'immage/avatar5.png') }}" alt="" class="h-[35px]">
+                            {% endif %}
+                        </td>
+                        <td>{{ utente.nome }}</td>
+                        <td>{{ utente.cognome }}</td>
+                        <td class="mr-20">{{ utente.tipo }}</td>
+                        <td class="flex gap-7 m-auto flex-col justify-center">
+                            <input type="checkbox" name="utente_selezionato" value="{{ utente.id_utente }}" class="bg-slate-700 m-auto theme-controller"/>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <input type="submit" value="Aggiungi Utenti" class="btn btn-primary mt-4 animation-delay-500 animate__animated animate__bounceIn text-slate-300 hover:text-slate-100">
+        </form>
+    </div>
+{% endblock %}

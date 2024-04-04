@@ -1,0 +1,75 @@
+{% extends "layout_dashboard.html" %}
+{% block title %}Utenti{% endblock %}
+{% block content %}
+
+    <!-- interno Dashboard -->
+<div class=" my-4 m-auto">
+    <div class="flex md:gap-5 gap-2">
+        <a href="{{ url_for('dashboard') }}">
+            <img src="{{ url_for('static',filename = 'immage/arrow-small-left3.png') }}" class="pl-20">
+        </a>
+        <h1 class="mb-3 text-center text-s md:text-3xl dark:text-white text-black m-auto">Lista utenti</h1>
+        <a href="{{ url_for('new') }}">
+            <button class="btn px-[10px] min-h-2 min-w-2 w-25 h-10 text-xs md-text-lg btn-primary text-slate-300 hover:text-slate-100 text-center justify-center m-auto">Crea nuovo Utente</button>
+        </a>
+        
+    </div>
+    <table class="md:table table-striped text-center mt-4">
+        <thead>
+            <tr class="text-center">
+                <th class="text-slate-200 text-xs md:text-lg">ID</th>
+                <th class="text-slate-200 text-xs md:text-lg">Avatar</th>
+                <th class="text-slate-200 text-xs md:text-lg">Nome</th>
+                <th class="text-slate-200 text-xs md:text-lg">Cognome</th>
+                <th class="text-slate-200 text-xs md:text-lg">Tipologia</th>
+                <th class="text-slate-200 text-xs md:text-lg">Azioni</th>
+            </tr>
+            
+        </thead>
+        <tbody class="text-center md:text-base text-xs">
+            {% for utente in utenti_list %}
+            <tr>
+                <td class="text-slate-300">{{ utente.id_utente }}</td>
+                <td >
+                    {% if utente.avatar == 1 %}
+                        <img src="{{ url_for('static',filename = 'immage/avatar1.png') }}" alt="" class="md:h-[35px] h-[15px] m-auto">
+                    {% elif utente.avatar == 2  %}
+                        <img src="{{ url_for('static',filename = 'immage/avatar2.png') }}" alt="" class="md:h-[35px] h-[15px] m-auto">
+                    {% elif utente.avatar == 3 %}
+                        <img src="{{ url_for('static',filename = 'immage/avatar3.png') }}" alt="" class="md:h-[35px] h-[15px] m-auto" >
+                    {% elif utente.avatar == 4 %}
+                        <img src="{{ url_for('static',filename = 'immage/avatar4.png') }}" alt="" class="md:h-[35px] h-[15px] m-auto">
+                    {% elif utente.avatar == 5 %}
+                        <img src="{{ url_for('static',filename = 'immage/avatar5.png') }}" alt="" class="md:h-[35px] h-[15px] m-auto">
+                    {% endif %}
+                </td>
+                <td class="text-slate-300">{{ utente.nome }}</td>
+                <td class="text-slate-300">{{ utente.cognome }}</td>
+                <td class="pr-5 text-slate-300">{{ utente.tipo }}</td>
+                <td class="flex md:gap-7 gap-4">
+                    <a href="{{ url_for('infoutente_def', id=utente.id_utente) }}">
+                        <img src="{{ url_for('static',filename = 'immage/eye.png') }}" alt="" class="transition duration-300 ease-in-out transform hover:scale-[1.3]">
+                        <!-- <button type="submit" class="btn btn-primary animate__animated text-xs animate__bounceIn text-slate-300 hover:text-slate-100">Informazioni</button> -->
+                    </a>
+                
+                
+                    <a href="{{ url_for('aggiornacampi', id=utente.id_utente) }}">
+                        <img src="{{ url_for('static',filename = 'immage/edit2.png') }}" alt="" class="transition duration-300 ease-in-out transform hover:scale-[1.3]">
+                        <!-- <button type="submit" class="btn btn-primary animate__animated text-xs animate__bounceIn text-slate-300 hover:text-slate-100">Informazioni</button> -->
+                    </a>
+                
+                    <a href="{{ url_for('conteliminautenti', id=utente.id_utente) }}">
+                        <img src="{{ url_for('static',filename = 'immage/cross-circle.png') }}" alt="" class="transition duration-300 ease-in-out transform hover:scale-[1.3]">
+                        <!-- <button type="submit" class="btn btn-primary animate__animated text-xs animate__bounceIn text-slate-300 hover:text-slate-100">Informazioni</button> -->
+                    </a>
+                    
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        
+    </table>
+</div>
+
+
+{% endblock %}

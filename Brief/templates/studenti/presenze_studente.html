@@ -1,0 +1,45 @@
+{% extends "layout_dashboard.html" %}
+
+{% block title %}Presenze Studente{% endblock %}
+{% block dashboard_studente %}
+    <div class=" my-4 m-auto">
+        <div class="flex md:gap-5 gap-2">
+            <a href="{{ url_for('dashboard') }}">
+                <img src="{{ url_for('static',filename = 'immage/arrow-small-left3.png') }}">
+            </a>
+            <h1 class="mb-3 text-center text-3xl dark:text-white text-black m-auto">Presenze</h1>
+        
+        </div>
+        <table class="table table-striped text-center">
+            <thead>
+                <tr>
+                    <th>Corso</th>
+                    <th>Argomento</th>
+                    <th>Cognome</th>
+                    <th>Stato</th>
+                </tr>
+                
+            </thead>
+            <tbody class="text-center md:text-base text-xs">
+                {% for lezione, corso, registrazione in lezioni_list %}
+                <tr>
+                    <td>{{ corso.nome}}</td>
+                    <td>{{ lezione.argomento }}</td>
+                    <td>{{ lezione.data }}</td>
+                    {% if registrazione.presenza == 'T' %}
+                        <td class="mr-20 text-lime-600">Presente</td>
+                    {% elif registrazione.presenza == 'F' %}
+                        <td class="mr-20 text-red-500">Assente</td>
+                    {% else %}
+                        <td class="mr-20">Presenza non registrata</td>
+                    {% endif %}
+                    
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <a href="{{ url_for('dashboard') }}">
+            <button class="btn btn-primary mt-4 animation-delay-500 animate__animated animate__bounceIn text-slate-300 hover:text-slate-100"> Dashboard</button>
+        </a>
+    </div>
+{% endblock %}

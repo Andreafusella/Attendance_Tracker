@@ -1,0 +1,116 @@
+{% extends "layout.html" %}
+<!DOCTYPE html>
+<head>
+    {% block title %}Homepage{% endblock %}
+</head>
+<body>
+    {% block dashboard %}
+    {% block content%}
+    
+    
+    <!-- nav -->
+    <section id="nav">
+        <nav class="dark:bg-gradient-to-r dark:from-violet-800 dark:via-indigo-800 dark:to-purple-900 bg-gradient-to-r border-gray-200 from-purple-500 via-purple-600 to-purple-700">
+            <div class="max-w-screen-xl flex items-center justify-between mx-auto p-4">
+                <a href="#" class="flex items-center space-x-3 rtl:space-x-reverse ">
+                    <img src="{{ url_for('static',filename = 'immage/9391712.png') }}" alt="Logo sito" height="50px" width="50px" class="animation-delay-500 animate__animated animate__bounceInLeft"/>
+                    <h1 class="text-2xl animation-delay-100 animate__animated animate__bounceInLeft text-slate-300 hover:text-slate-100"> Attendance Tracker </h1>
+                </a>
+
+                <!-- 2 tasti -->
+                <div class=" w-full md:w-auto" id="navbar-default">
+                    <ul class="font-medium flex p-4 pl-[60px] pr-0 md:p-0 mt-4 rounded-lg md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 ">
+                        {% if 'nome' in session %}
+                            <li class="mr-5">
+                                <a href="{{ url_for('dashboard') }}" class="btn min-h-4 min-w-7 h-10 w-30 text-xs btn-info animation-delay-300 animate__animated animate__bounceInDown text-slate-300 hover:text-slate-100">Dashboard</a>
+                            </li>
+                            <li>
+                                <a href="{{ url_for('logout') }}" class="btn min-h-4 min-w-7 h-10 w-30 text-xs btn-info animation-delay-500 animate__animated animate__bounceInDown text-slate-300 hover:text-slate-100">Logout</a>
+                            </li>
+                        {% else %}
+                            <li class="mr-5">
+                                <a href="{{ url_for('login') }}" class="btn btn-info animation-delay-300 animate__animated animate__bounceInDown text-slate-300 hover:text-slate-100">Login</a>
+                            </li>
+                            <!-- <li>
+                                <button id="toggleButton" class="btn min-h-4 min-w-7 h-10 w-30 text-xs btn-info animation-delay-500 animate__animated animate__bounceInDown text-slate-300 hover:text-slate-100">Night</button>
+                            </li> -->
+                        {% endif %}
+                    </ul>
+                </div>
+                
+            </div>
+        </nav>
+    </section>
+    <!-- mezzo -->
+    
+    <section id="mezzo">
+        <div>
+            <div class="hero md:h-[550px] bg-sfondo1 bg-contain">
+                <div class="hero-overlay bg-opacity-30"></div>
+                <div class="hero-content text-center text-neutral-content">
+                    <div class="max-w-md">
+                        <h1 class=" md:text-5xl md:mb-2 font-bold animate__animated animate__fadeInLeftBig text-slate-200">ATTENDANCE TRACKER</h1>
+                        <p class="md:mb-20 md:text-2xl animate__animated animate__fadeInRight text-slate-300">App sviluppata per docenti e studenti</p>
+                        {% if 'nome' in session %}
+                            <a href="{{ url_for('dashboard') }}">
+                                <button class="btn btn-primary md:text-xl text-xs hover:fa-bounce animation-delay-500 animate__animated animate__bounceInUp text-slate-300 hover:text-slate-100 ">Entra nella dashboard!</button>
+                            </a>
+                        {% else %}    
+                            <a href="{{ url_for('login') }}">
+                                <button class="btn btn-primary md:text-xl text-xs hover:fa-bounce animation-delay-500 animate__animated animate__bounceInUp text-slate-300 hover:text-slate-100 ">Inizia da qui, accedi!</button>
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+              </div>
+        </div>
+    </section>
+    
+    <!-- 3 immagini -->
+    <section id="secparte">
+        <div id="1secparte" class="bg-gradient-to-b from-purple-600 via-purple-500 to-purple-400 dark:bg-gradient-to-b dark:from-indigo-900 dark:to-fuchsia-800 h-full pt-6">
+            <h1 class="text-center md:text-5xl text-2xl md:pt-[2%] text-slate-100 font-bold">COSA FACCIAMO QUI?</h1>
+            <div class="block items-center md:px-[10%] py-[5%] gap-28 md:flex m-auto text-center">
+                <img src="{{ url_for('static',filename = 'immage/1di3.jpg') }}" alt="1/3" class="rounded-[50px] m-auto md:w-[300px] w-[150px] dark:opacity-[0.75]">
+                <div class="text-center">
+                    <h1 class="md:text-5xl text-xl font-bold pt-[3%] dark:text-slate-300 text-slate-100">All'anvaguardia 🤩</h1>
+                    <hr class="my-[5%] border-gray-300">
+                    <p class="md:m-0 mx-5 text-slate-200">Rivolto sia ai docenti che agli studenti, questo intuitivo strumento consente di monitorare in tempo reale la partecipazione alle lezioni, semplificando il processo di registrazione e fornendo report dettagliati sull'andamento delle presenze nel corso del tempo.</p>
+                </div>
+            </div>
+        </div>
+        <div id="2secparte" class="h-full bg-gradient-to-b from-fuchsia-600 via-purple-500 to-purple-600 dark:bg-gradient-to-b dark:from-indigo-700 dark:via-violet-800 dark:to-violet-900">
+            <div class="block items-center md:px-[10%] py-[5%] gap-28 md:flex text-center">
+                <div class="text-center">
+                    <h1 class="md:text-5xl text-xl font-bold dark:text-slate-300 text-slate-100">🪄 Un click!</h1>
+                    <hr class="my-[5%]">
+                    <p class=" md:m-0 mx-5 text-slate-200">Con Attendance Tracker, i docenti possono facilmente segnare la presenza degli studenti con pochi clic, eliminando la necessità di procedure manuali e riducendo il rischio di errori. Gli studenti, d'altro canto, possono registrare la propria presenza in modo rapido e semplice, consentendo loro di tenere traccia del proprio rendimento e della frequenza alle lezioni.</p>
+                </div>
+                <img src="{{ url_for('static',filename = 'immage/2di3.jpg') }}" alt="1/3" class="rounded-[50px] m-auto md:w-[300px] w-[150px] dark:opacity-70 mt-3">
+            </div>
+        </div>
+        <div id="3secparte" class="bg-gradient-to-tl from-purple-600 via-purple-500 to-purple-700 dark:bg-gradient-to-tl dark:from-indigo-900 dark:to-fuchsia-800">
+            <div class="block items-center md:px-[10%] py-[5%] gap-28 md:flex">
+                <img src="{{ url_for('static',filename = 'immage/3di3.jpg') }}" alt="1/3" class="rounded-[50px] m-auto md:w-[300px] w-[150px] dark:opacity-[0.75]">
+                <div class="text-center">
+                    <h1 class="md:text-5xl text-xl font-bold pt-[5%] dark:text-slate-300 text-slate-100">Report e statistiche 📊</h1>    
+                    <hr class="my-[5%] border-gray-300">
+                    <p class=" md:m-0 mx-5 text-slate-300">Attendance Tracker consente di visualizzare dati statistici dettagliati e generare report completi sull'andamento delle presenze. Con questo strumento innovativo, docenti e studenti possono migliorare l'efficienza della gestione delle presenze e monitorare con precisione il progresso accademico nel tempo.</p>
+                    
+                    {% if 'nome' in session %}
+                        <a href="{{ url_for('dashboard') }}">
+                            <button class="btn btn-primary md:text-xs text-xs hover:fa-bounce text-slate-300 hover:text-slate-100 mt-6">Dashboard</button>
+                        </a>
+                    {% else %}
+                        <a href="{{ url_for('login') }}">
+                            <button class="btn btn-primary md:text-xs text-xs hover:fa-bounce text-slate-300 hover:text-slate-100 mt-6">Provalo ora</button>
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+    {% endblock %}
+    {% endblock %}
+</body>
+</html>

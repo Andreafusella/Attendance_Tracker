@@ -1,0 +1,57 @@
+{% extends "layout_dashboard.html" %}
+    {% block title %}Aggiungi Lezione{% endblock %}
+
+    {% block content %}
+    <div class="bg-gray-50 dark:bg-slate-800">
+        <div class="flex flex-col justify-center items-center min-h-screen gap-4 animation-delay-200 animate__animated animate__bounceIn">
+            <a href="{{ url_for('homepage') }}"><img src="{{ url_for('static',filename = 'immage/9391712.png') }}" alt="logo" height="100px" width="100px" class=""></a>
+            <div class="flex items-center">
+                <a href="{{ url_for('lezioni') }}" class="mr-2">
+                    <img src="{{ url_for('static', filename='immage/arrow-small-left3.png') }}" alt="">
+                </a>
+                <h2 class="font-semibold md:text-4xl text-2xl animation-delay-200 animate__animated animate__bounceIn text-white dark:text-slate-300">Crea nuova lezione</h2>
+            </div>
+            <div class="flex flex-col md:flex-row rounded-xl w-full max-w-[30rem] bg-slate-200 dark:bg-slate-700 overflow-hidden">
+                
+                <!-- form -->
+                <div class="w-full p-10 text-center">
+                    
+                    <form action="" method="post" novalidate onclick="this.disabled=true; this.form.submit();">
+                        {{form.csrf_token}}
+                        <div class="gap-5">
+                            <div class="text-center m-auto">
+                                <label for="argomento" class="form-control w-full max-w-xs animation-delay-400 animate__animated animate__bounceIn m-auto">
+                                    <div class="label">
+                                        <span class="label-text text-slate-600 dark:text-slate-300">Argomento</span>
+                                    </div>
+                                    {{ form.argomento(class="input input-bordered w-full max-w-xs bg-slate-200", id="argomento") }}
+                                </label>
+                                <label for="data" class="form-control w-full max-w-xs animation-delay-600 animate__animated animate__bounceIn m-auto">
+                                    <div class="label">
+                                        <span class="label-text text-slate-600 dark:text-slate-300">Data</span>
+                                    </div>
+                                    {{ form.data(class="input input-bordered w-full max-w-xs bg-slate-200", id="data") }}
+                                </label>
+                                <label for="corso" class="form-control w-full max-w-xs animation-delay-800 animate__animated animate__bounceIn m-auto">
+                                    <div class="label">
+                                        <span class="label-text text-slate-600 dark:text-slate-300">Corso</span>
+                                    </div>
+                                    {{ form.corso(class="input input-bordered w-full max-w-xs bg-slate-200", id="corso") }}
+                                </label>
+                                <label for="professore" class="form-control w-full max-w-xs animation-delay-1000 animate__animated animate__bounceIn m-auto">
+                                    <div class="label">
+                                        <span class="label-text text-slate-600 dark:text-slate-300">Professore</span>
+                                    </div>
+                                    {{ form.professore(class="input input-bordered w-full max-w-xs bg-slate-200", id="professore") }}
+                                </label>
+                            </div>
+                            
+                        </div>
+                        <br>
+                        <input type="submit" value="Crea Lezione" class="btn btn-primary mt-4 animation-delay-1100 animate__animated animate__bounceIn text-slate-300 hover:text-slate-100">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

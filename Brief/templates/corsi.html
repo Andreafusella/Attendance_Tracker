@@ -1,0 +1,62 @@
+{% extends "layout_dashboard.html" %}
+{% block title %}Corsi{% endblock %}
+{% block content %}
+
+    <!-- interno Dashboard -->
+    <div class=" my-4 m-auto">
+        <div class="flex md:gap-5 gap-2">
+            <a href="{{ url_for('dashboard') }}">
+                <img src="{{ url_for('static',filename = 'immage/arrow-small-left3.png') }}" class="pl-20">
+            </a>
+            <h1 class="mb-3 text-center text-s md:text-3xl dark:text-white text-black m-auto">Lista corsi</h1>
+            <a href="{{ url_for('corsi_agg') }}">
+                <button class="btn px-[10px] mr-2 min-h-2 min-w-2 w-25 h-10 text-xs md-text-lg btn-primary text-slate-300 hover:text-slate-100 text-center justify-center m-auto">Crea nuovo Corso</button>
+            </a>
+        </div>
+        <table class="table table-striped text-center">
+            <thead>
+                <tr class="text-center">
+                    <th class="text-slate-200">ID</th>
+                    <th class="text-slate-200">Nome</th>
+                    <th class="text-slate-200">Durata</th>
+                    <th class="text-slate-200">Azioni</th>
+                </tr>
+                
+            </thead>
+            <tbody class="text-center md:text-base text-xs">
+                {% for corso in corso_list %}
+                <tr>
+                    <td class="text-slate-300">{{ corso.id_corso }}</td>
+                    <td class="text-slate-300">{{ corso.nome }}</td>
+                    <td class="text-slate-300">{{ corso.durata }}</td>
+                    <td class="flex md:gap-7 gap-4">
+                        <a href="{{ url_for('info_corsi', id=corso.id_corso) }}">
+                            <img src="{{ url_for('static',filename = 'immage/eye.png') }}" alt="" class="transition duration-300 ease-in-out transform hover:scale-[1.3]">
+                        </a>
+                        <a href="{{ url_for('aggiorna_corsi', id=corso.id_corso) }}">
+                            <img src="{{ url_for('static',filename = 'immage/edit2.png') }}" alt="" class="transition duration-300 ease-in-out transform hover:scale-[1.3]">
+                        </a>
+                    
+                        <a href="{{ url_for('corsi_delete', id=corso.id_corso) }}">
+                            <img src="{{ url_for('static',filename = 'immage/cross-circle.png') }}" alt="" class="transition duration-300 ease-in-out transform hover:scale-[1.3]">
+                        </a>
+
+                        <a href="{{ url_for('utenti_list_corsi_add', id=corso.id_corso) }}">
+                            <img src="{{ url_for('static',filename = 'immage/user-add.png') }}" alt="" class="transition duration-300 ease-in-out transform hover:scale-[1.3]">
+                        </a>
+
+                        <a href="{{ url_for('utenti_remove', id=corso.id_corso) }}" >
+                            <img src="{{ url_for('static',filename = 'immage/remove-user.png') }}" alt="" class="transition duration-300 ease-in-out transform hover:scale-[1.3]">
+                            
+                        </a>
+                        
+                    </td>
+                    
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    
+{% endblock %}

@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en" id="classedark" class="dark">
+<head>
+    {%block head%}
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}layout dashboard{% endblock %}</title>
+        <link rel="stylesheet" href="{{ url_for('static',filename = 'style/output.css') }}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+    {% endblock %}
+</head>
+<body>
+    <div class="drawer lg:drawer-open bg-slate-800">
+        <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
+        <div class="drawer-content flex flex-col">
+            <label for="my-drawer-2" class="btn btn-primary drawer-button lg:hidden min-h-5 min-w-5 h-10 w-6 text-slate-300 hover:text-slate-100 absolute top-0 left-0 mt-4 ml-4 text-2xl">≡</label>
+            <div class="text-center {% block containerClass %}m-auto{% endblock %} justify-center ">
+                {% if session['tipo_definitivo'] == 'Admin' %}
+                    {% block content %}
+                    {% endblock %}
+                {% elif session['tipo_definitivo'] == 'Docente' %}
+                    {% block dashboard_docente %}
+                    {% endblock %}
+                {% else %}
+                    {% block dashboard_studente %}
+                    {% endblock %}
+                {% endif %}
+            </div>
+        
+        </div> 
+        <div class="drawer-side">
+          <label for="my-drawer-2" aria-label="close sidebar" class="drawer-overlay"></label> 
+          <div class="menu  p-0 min-h-full text-base-content h-[100%]">
+                
+                    {% if session['tipo_definitivo'] == 'Admin' %}
+                        <div id="dashboard" class="h-full">
+                            <section id="menu" class="h-[100%]">
+                                <div class=" bg-gray-50 dark:bg-slate-500 h-[100%]">
+                                    <div class="flex md:w-64 md:flex md:flex-col h-[100%]">
+                                        <div class="flex flex-col flex-grow pt-5 overflow-y-auto bg-white dark:bg-slate-700">
+                                            <a href="{{ url_for('homepage')}}">
+                                                <div class="flex items-center flex-shrink-0 px-4">
+                                                    <img class="w-auto h-10" src="{{ url_for('static',filename = 'immage/9391712.png') }}" alt="Logo" />
+                                                    <h1 class="text-lg text-black ml-2 font-bold dark:text-white">Attendance Tracker</h1>
+                                                </div>
+                                            </a>
+            
+                                            <div class="px-4 mt-6">
+                                                <hr class="border-gray-200" />
+                                            </div>
+                                            <div class="flex flex-col flex-1 px-3 my-3 ">
+                                                <div class="space-y-4">
+                                                    <nav class="flex-1 space-y-2">
+                                                        <a href="{{ url_for('dashboard') }}" title="" class="flex items-center px-4 py-2.5 text-sm font-medium hover:text-white transition-all duration-200 hover:bg-indigo-600 rounded-lg group">
+                                                            <img src="{{ url_for('static',filename = 'immage/house-chimney.png') }}" alt="" class="mr-3">
+                                                            <p class="dark:text-white text-black hover:text-white transition-all duration-200">Dashboard</p>
+                                                        </a>
+                                                    </nav>
+            
+                                                    <hr class="border-gray-200" />
+            
+                                                    <nav class="flex-1 space-y-2">
+            
+                                                        <a href="{{url_for('utenti')}}" class="flex items-center px-4 py-2.5 text-sm font-medium transition-all duration-200 text-gray-900 hover:text-white rounded-lg hover:bg-indigo-600 group">
+                                                            <svg class="flex-shrink-0 w-5 h-5 mr-4 dark:text-white" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                                            </svg>
+                                                            <p class="dark:text-white text-black hover:text-white transition-all duration-200">Gestione Utenti</p>
+                                                        </a>
+            
+                                                        <a href="{{url_for('corsi')}}" class="flex items-center px-4 py-2.5 text-sm font-medium transition-all duration-200 text-gray-900 hover:text-white rounded-lg hover:bg-indigo-600 group">
+                                                            <img src="{{ url_for('static',filename = 'immage/aula25.png') }}" alt="" class="mr-3">
+                                                            <p class="dark:text-white text-black hover:text-white transition-all duration-200">Gestione Corsi</p>
+                                                        </a>
+            
+                                                        <a href="{{url_for('lezioni')}}" class="flex items-center px-4 py-2.5 text-sm font-medium transition-all duration-200 text-gray-900 hover:text-white rounded-lg hover:bg-indigo-600 group">
+                                                            <img src="{{ url_for('static',filename = 'immage/lavagna25.png') }}" alt="" class="mr-3" height="15px">
+                                                            <p class="dark:text-white text-black hover:text-white transition-all duration-200">Gestione Lezioni</p>
+                                                        </a>
+                                                    </nav>
+            
+                                                    <hr class="border-gray-200" />
+            
+                                                    <nav class="flex-1 space-y-2">
+                                                        <!-- <a href="#" class="flex items-center px-4 py-2.5 text-sm font-medium transition-all duration-200 text-gray-900 hover:text-white rounded-lg hover:bg-indigo-600 group">
+                                                            <svg class="flex-shrink-0 w-5 h-5 mr-4 dark:text-white" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                                <path
+                                                                    stroke-linecap="round"
+                                                                    stroke-linejoin="round"
+                                                                    d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+                                                                />
+                                                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                            </svg>
+                                                            <p class="dark:text-white text-black">Settings</p>
+                                                        </a> -->
+                                                        {% if 'nome' in session %}
+                                                            <a href="{{ url_for('logout') }}" class="flex items-center px-4 py-2.5 text-sm font-medium transition-all duration-200 text-white rounded-lg hover:bg-indigo-600 group">
+                                                                <svg class="flex-shrink-0 w-5 h-5 mr-4 dark:text-white" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                                    <path
+                                                                        stroke-linecap="round"
+                                                                        stroke-linejoin="round"
+                                                                        d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+                                                                    />
+                                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                                </svg>
+                                                                <p class="text-white" >Logout</p>
+                                                            </a>
+                                                        {% endif %}
+                                                    </nav>
+                                                </div>
+            
+                                                <div class="pb-4 mt-auto">
+                                                    <p class="flex items-center ">
+                                                        <div class="flex items-center">
+                                                            <div class="relative w-10 h-10 overflow-hidden mr-3">
+                                                                {% if session['avatar_definitivo'] == 1 %}
+                                                                    <img src="{{ url_for('static',filename = 'immage/avatar1.png') }}" alt="">
+                                                                {% elif session['avatar_definitivo'] == 2 %}
+                                                                    <img src="{{ url_for('static',filename = 'immage/avatar1.png') }}" alt="">
+                                                                {% elif session['avatar_definitivo'] == 3 %}
+                                                                    <img src="{{ url_for('static',filename = 'immage/avatar1.png') }}" alt="">
+                                                                {% elif session['avatar_definitivo'] == 4 %}
+                                                                    <img src="{{ url_for('static',filename = 'immage/avatar1.png') }}" alt="">
+                                                                {% elif session['avatar_definitivo'] == 5 %}
+                                                                    <img src="{{ url_for('static',filename = 'immage/avatar1.png') }}" alt="">
+                                                                {% endif %}
+                                                                <!-- <svg class="absolute w-12 h-12 text-gray-400 -left-1 dark:text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg> -->
+                                                            </div>
+                                                            <p class="dark:text-white text-black">            
+                                                                {{ session['nome_definitivo'] }}
+                                                                {{ session['cognome_definitivo'] }}
+                                                            </p> 
+                                                        </div>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+            
+                                    
+                                    <!-- interno Dashboard -->
+                                    
+                                </div>
+                            </section>
+                        </div>
+                    {% elif session['tipo_definitivo'] == 'Docente' %}
+                        <!-- dashboard Docente -->
+                        <div id="dashboard_docente" class="h-full">
+                            <section id="menu" class="h-[100%]">
+                                <div class=" bg-gray-50 dark:bg-slate-800 h-[100%]">
+                                    <div class="flex md:w-64 md:flex md:flex-col h-[100%]">
+                                        <div class="flex flex-col flex-grow pt-5 overflow-y-auto bg-white dark:bg-slate-700">
+                                            <a href="{{ url_for('homepage')}}">
+                                                <div class="flex items-center flex-shrink-0 px-4">
+                                                    <img class="w-auto h-10" src="{{ url_for('static',filename = 'immage/9391712.png') }}" alt="Logo" />
+                                                    <h1 class="text-lg text-black ml-2 font-bold dark:text-white">Attendance Tracker</h1>
+                                                </div>
+                                            </a>
+            
+                                            <div class="px-4 mt-6">
+                                                <hr class="border-gray-200" />
+                                            </div>
+                                            <div class="flex flex-col flex-1 px-3 my-3 ">
+                                                <div class="space-y-4">
+                                                    <nav class="flex-1 space-y-2">
+                                                        <a href="{{ url_for('dashboard') }}" title="" class="flex items-center px-4 py-2.5 text-sm font-medium hover:text-white transition-all duration-200 hover:bg-indigo-600 rounded-lg group">
+                                                            <img src="{{ url_for('static',filename = 'immage/house-chimney.png') }}" alt="" class="mr-3">
+                                                            <p class="dark:text-white text-black hover:text-white transition-all duration-200">Dashboard</p>
+                                                        </a>
+                                                    </nav>
+            
+                                                    <hr class="border-gray-200" />
+            
+                                                    <nav class="flex-1 space-y-2">                                    
+            
+                                                        <a href="{{url_for('lezioni_docenti')}}" class="flex items-center px-4 py-2.5 text-sm font-medium transition-all duration-200 text-gray-900 hover:text-white rounded-lg hover:bg-indigo-600 group">
+                                                            <img src="{{ url_for('static',filename = 'immage/lavagna25.png') }}" alt="" class="mr-3" height="15px">
+                                                            <p class="dark:text-white text-black hover:text-white transition-all duration-200">Gestione Lezioni</p>
+                                                        </a>
+                                                    </nav>
+            
+                                                    <hr class="border-gray-200" />
+            
+                                                    <nav class="flex-1 space-y-2">
+                                                        
+                                                        {% if 'nome' in session %}
+                                                            <a href="{{ url_for('logout') }}" class="flex items-center px-4 py-2.5 text-sm font-medium transition-all duration-200 text-white rounded-lg hover:bg-indigo-600 group">
+                                                                <svg class="flex-shrink-0 w-5 h-5 mr-4 dark:text-white" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                                    <path
+                                                                        stroke-linecap="round"
+                                                                        stroke-linejoin="round"
+                                                                        d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+                                                                    />
+                                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                                </svg>
+                                                                <p class="text-white" >Logout</p>
+                                                            </a>
+                                                        {% endif %}
+                                                    </nav>
+                                                </div>
+            
+                                                <div class="pb-4 mt-auto">
+                                                    <p class="flex items-center ">
+                                                        <div class="flex items-center">
+                                                            <div class="relative w-10 h-10 overflow-hidden mr-3">
+                                                                {% if session['avatar_definitivo'] == 1 %}
+                                                                    <img src="{{ url_for('static',filename = 'immage/avatar1.png') }}" alt="">
+                                                                {% elif session['avatar_definitivo'] == 2 %}
+                                                                    <img src="{{ url_for('static',filename = 'immage/avatar1.png') }}" alt="">
+                                                                {% elif session['avatar_definitivo'] == 3 %}
+                                                                    <img src="{{ url_for('static',filename = 'immage/avatar1.png') }}" alt="">
+                                                                {% elif session['avatar_definitivo'] == 4 %}
+                                                                    <img src="{{ url_for('static',filename = 'immage/avatar1.png') }}" alt="">
+                                                                {% elif session['avatar_definitivo'] == 5 %}
+                                                                    <img src="{{ url_for('static',filename = 'immage/avatar1.png') }}" alt="">
+                                                                {% endif %}
+                                                            </div>
+                                                            <p class="dark:text-white text-black">            
+                                                                {{ session['nome_definitivo'] }}
+                                                                {{ session['cognome_definitivo'] }}
+                                                            </p> 
+                                                        </div>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+            
+                                    
+                                    <!-- interno Dashboard docente -->
+                                    
+                                </div>
+                            </section>
+                        </div>
+                    {% else %}
+                        <div id="dashboard_studente" class="h-full">
+                            <section id="menu" class="h-[100%]">
+                                <div class=" bg-gray-50 dark:bg-slate-800 h-[100%]">
+                                    <div class="flex md:w-64 md:flex md:flex-col h-[100%]">
+                                        <div class="flex flex-col flex-grow pt-5 overflow-y-auto bg-white dark:bg-slate-700">
+                                            <a href="{{ url_for('homepage')}}">
+                                                <div class="flex items-center flex-shrink-0 px-4">
+                                                    <img class="w-auto h-10" src="{{ url_for('static',filename = 'immage/9391712.png') }}" alt="Logo" />
+                                                    <h1 class="text-lg text-black ml-2 font-bold dark:text-white">Attendance Tracker</h1>
+                                                </div>
+                                            </a>
+        
+                                            <div class="px-4 mt-6">
+                                                <hr class="border-gray-200" />
+                                            </div>
+                                            <div class="flex flex-col flex-1 px-3 my-3 ">
+                                                <div class="space-y-4">
+                                                    <nav class="flex-1 space-y-2">
+                                                        <a href="{{ url_for('dashboard') }}" title="" class="flex items-center px-4 py-2.5 text-sm font-medium hover:text-white transition-all duration-200 hover:bg-indigo-600 rounded-lg group">
+                                                            <img src="{{ url_for('static',filename = 'immage/house-chimney.png') }}" alt="" class="mr-3">
+                                                            <p class="dark:text-white text-black hover:text-white transition-all duration-200">Dashboard</p>
+                                                        </a>
+                                                    </nav>
+        
+                                                    <hr class="border-gray-200" />
+        
+                                                    <nav class="flex-1 space-y-2">                                    
+        
+                                                        <a href="{{ url_for('presenze_studente') }}" class="flex items-center px-4 py-2.5 text-sm font-medium transition-all duration-200 text-gray-900 hover:text-white rounded-lg hover:bg-indigo-600 group">
+                                                            <img src="{{ url_for('static',filename = 'immage/presenze_doc25.png') }}" alt="" class="mr-3" height="15px">
+                                                            <p class="dark:text-white text-black hover:text-white transition-all duration-200">Presenze</p>
+                                                        </a>
+                                                    </nav>
+        
+                                                    <nav class="flex-1 space-y-2">                                    
+        
+                                                        <a href="{{ url_for('lezioni_studente') }}" class="flex items-center px-4 py-2.5 text-sm font-medium transition-all duration-200 text-gray-900 hover:text-white rounded-lg hover:bg-indigo-600 group">
+                                                            <img src="{{ url_for('static',filename = 'immage/lavagna25.png') }}" alt="" class="mr-3" height="15px">
+                                                            <p class="dark:text-white text-black hover:text-white transition-all duration-200">Lezioni</p>
+                                                        </a>
+                                                    </nav>
+        
+                                                    <nav class="flex-1 space-y-2">                                    
+        
+                                                        <a href="{{ url_for('corsi_studente') }}" class="flex items-center px-4 py-2.5 text-sm font-medium transition-all duration-200 text-gray-900 hover:text-white rounded-lg hover:bg-indigo-600 group">
+                                                            <img src="{{ url_for('static',filename = 'immage/aula25.png') }}" alt="" class="mr-3" height="15px">
+                                                            <p class="dark:text-white text-black hover:text-white transition-all duration-200">Corsi</p>
+                                                        </a>
+                                                    </nav>
+        
+                                                    <hr class="border-gray-200" />
+        
+                                                    <nav class="flex-1 space-y-2">
+                                                        
+                                                        {% if 'nome' in session %}
+                                                            <a href="{{ url_for('logout') }}" class="flex items-center px-4 py-2.5 text-sm font-medium transition-all duration-200 text-white rounded-lg hover:bg-indigo-600 group">
+                                                                <svg class="flex-shrink-0 w-5 h-5 mr-4 dark:text-white" xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                                                    <path
+                                                                        stroke-linecap="round"
+                                                                        stroke-linejoin="round"
+                                                                        d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+                                                                    />
+                                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                                </svg>
+                                                                <p class="text-white" >Logout</p>
+                                                            </a>
+                                                        {% endif %}
+                                                    </nav>
+                                                </div>
+        
+                                                <div class="pb-4 mt-auto">
+                                                    <p class="flex items-center ">
+                                                        <div class="flex items-center">
+                                                            <div class="relative w-10 h-10 overflow-hidden mr-3">
+                                                                {% if session['avatar_definitivo'] == 1 %}
+                                                                    <img src="{{ url_for('static',filename = 'immage/avatar1.png') }}" alt="">
+                                                                {% elif session['avatar_definitivo'] == 2 %}
+                                                                    <img src="{{ url_for('static',filename = 'immage/avatar1.png') }}" alt="">
+                                                                {% elif session['avatar_definitivo'] == 3 %}
+                                                                    <img src="{{ url_for('static',filename = 'immage/avatar1.png') }}" alt="">
+                                                                {% elif session['avatar_definitivo'] == 4 %}
+                                                                    <img src="{{ url_for('static',filename = 'immage/avatar1.png') }}" alt="">
+                                                                {% elif session['avatar_definitivo'] == 5 %}
+                                                                    <img src="{{ url_for('static',filename = 'immage/avatar1.png') }}" alt="">
+                                                                {% endif %}
+                                                            </div>
+                                                            <p class="dark:text-white text-black">            
+                                                                {{ session['nome_definitivo'] }}
+                                                                {{ session['cognome_definitivo'] }}
+                                                            </p> 
+                                                        </div>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+        
+                                    
+                                    <!-- interno Dashboard studente -->
+                        
+                                </div>
+                            </section>
+                        </div>
+                    {% endif %}
+          </div>
+        
+        </div>
+      </div>
+    
+    
+    <div id="footer">
+        {% block footer %}
+            <section id="footer">
+                <footer class=" dark:bg-gradient-to-r dark:from-violet-800 dark:via-indigo-800 dark:to-purple-900 bg-gradient-to-r from-purple-500 via-purple-600  to-purple-700 border-gray-200 ">
+                    <div class="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
+                        <div class="md:flex md:justify-between">
+                            <div class="mb-6 md:mb-0">
+                                <a href="#" class="flex items-center">
+                                    <img src="{{ url_for('static',filename = 'immage/9391712.png') }}" class="h-8 me-3" alt="logo" />
+                                    <span class="self-center text-lg md:text-2xl font-semibold whitespace-nowrap text-white">Attendance Tracker</span>
+                                </a>
+                            </div>
+                        <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
+                            <div>
+                                <h2 class="mb-6 text-sm font-semibold  uppercase text-pink-500">Resources</h2>
+                                <ul class="text-pink-300 font-medium">
+                                    <li class="mb-4">
+                                        <a href="{{ url_for('error404') }}" class="hover:underline">Attendance Tracker</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url_for('error404') }}" class="hover:underline">Google</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h2 class="mb-6 text-sm font-semibold uppercase text-pink-500">Follow us</h2>
+                                <ul class="text-pink-300 font-medium">
+                                    <li class="mb-4">
+                                        <a href="{{ url_for('error404') }}" class="hover:underline ">Facebook</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url_for('error404') }}" class="hover:underline">Instagram</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h2 class="mb-6 text-sm font-semibold text-pink-500">Legal</h2>
+                                <ul class="text-pink-300 font-medium">
+                                    <li class="mb-4">
+                                        <a href="{{ url_for('error404') }}" class="hover:underline">Privacy Policy</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url_for('error404') }}" class="hover:underline">Terms &amp; Conditions</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                        <hr class="my-6 dark:border-gray-200 sm:mx-auto border-gray-800 lg:my-8" />
+                        <div class="sm:flex sm:items-center sm:justify-between text-pink-300">
+                            <span class="text-sm sm:text-center dark:text-gray-400">© 2023 <a href="{{ url_for('error404') }}" class="hover:underline">Attendace Tracker</a>
+                            </span>
+                            <div class="flex mt-4 sm:justify-center sm:mt-0">
+                                <a href="{{ url_for('error404') }}" class="text-pink-400 hover:text-white">
+                                    <i class="w-4 h-4 fa-brands fa-facebook fa-bounce"></i>
+                                    <span class="sr-only">Facebook</span>
+                                </a>
+                                <a href="{{ url_for('error404') }}" class="text-pink-400 hover:text-white ms-5">
+                                    <i class="w-4 h-4 fa-brands fa-discord fa-bounce"></i>
+                                    <span class="sr-only">Discord</span>
+                                </a>
+                                <a href="{{ url_for('error404') }}" class="text-pink-400 hover:text-white ms-5">
+                                    <i class="w-4 h-4 fa-brands fa-twitter fa-bounce hidden"></i>
+                                    <span class="sr-only">Twitter</span>
+                                </a>
+                                <a href="{{ url_for('error404') }}" class="text-pink-400 hover:text-white ms-5">
+                                    <i class="w-4 h-4 fa-brands fa-instagram fa-bounce"></i>
+                                    <span class="sr-only">Instagram</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </section>
+        {% endblock %}
+      </div>
+    {% block script%}
+      <script src="https://kit.fontawesome.com/5da480d4a4.js" crossorigin="anonymous"></script>
+      <script src="../path/to/flowbite/dist/flowbite.min.js"></script>
+      <script type="text/javascript" src="../node_modules/tw-elements/dist/js/tw-elements.umd.min.js"></script>
+      <script src="{{url_for('static',filename = 'script/dark.js')}}"></script>
+    {% endblock %}
+</body>
+</html>

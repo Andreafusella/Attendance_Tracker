@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+
+{% block title %}Conferma Aggiunta{% endblock %}
+
+{% block content %}
+    <div class="flex flex-col justify-center items-center h-[500px]">
+        <h1 class="text-3xl text-white animate__animated animate__fadeInUp animation-delay-100">Corso aggiunto correttamente</h1>
+        <a href="{{ url_for('dashboard') }}">
+            <button type="submit" class="btn btn-primary mt-4 animation-delay-500 animate__animated animate__bounceIn text-slate-300 hover:text-slate-100">Torna alla dashboard</button>
+        </a>
+    </div>
+{% endblock%}

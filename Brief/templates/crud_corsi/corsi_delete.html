@@ -1,0 +1,52 @@
+{% extends "layout_dashboard.html" %}
+
+
+{% block title %}Delete Corso{% endblock %}
+
+{% block content %}
+    <div class="items-center my-4 mx-auto pt-20">
+        <div class="flex flex-col items-center gap-5 mb-7">
+            <div class="flex">
+                <a href="{{ url_for('corsi') }}" class="mr-2">
+                    <img src="{{ url_for('static', filename='immage/arrow-small-left3.png') }}" class="text-center justify-center m-auto" alt="">
+                </a>
+                <h1 class="mb-3 text-center text-3xl dark:text-white text-black">{{ nome_corso }}</h1>
+            
+            </div>
+        </div>
+        <div class="overflow-x-auto mb-[400px]">
+            <table class="table-auto mx-auto">
+                <thead>
+                    <tr>
+                        <th class="px-4 py-2">ID Lezione</th>
+                        <th class="px-4 py-2">Argomento</th>
+                        <th class="px-4 py-2">Data</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for lezione in lezioni_list %}
+                    <tr>
+                        <td class="px-4 py-2">{{ lezione.id_lezione }}</td>
+                        <td class="px-4 py-2">{{ lezione.argomento }}</td>
+                        <td class="px-4 py-2">{{ lezione.data }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div class="d-flex justify-content-center">
+                <h1 class="text-2xl text-zinc-300 mt-7">Eliminare il corso definitivamente?</h1>
+                <hr class="my-4 dark:border-slate-200 border-gray-300 border-2 animation-delay-200 animate__animated animate__bounceIn">
+                <div class="text-center mt-8 flex items-center justify-center gap-10">
+                    <a href="{{ url_for('corsi_delete_db', nome=nome_corso) }}">
+                        <button type="submit" class="btn btn-primary animation-delay-500 animate__animated animate__bounceIn text-slate-300 hover:text-red-600">Elimina</button>
+                    </a>
+                    <a href="{{ url_for('corsi') }}" class="text-white">
+                        <button type="submit" class="btn btn-primary animation-delay-500 animate__animated animate__bounceIn text-slate-300 hover:text-slate-100">Rifiuta</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+{% endblock %}
+
